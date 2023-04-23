@@ -4,7 +4,7 @@ using ConsoleApp3.DamageSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using ConsoleApp3.Services;
 
 namespace ConsoleApp3.AppDbContext
 {
@@ -12,10 +12,10 @@ namespace ConsoleApp3.AppDbContext
     {
         public List<Pokemons> ReceivePokemons()
         {
-            List<string> fireSkill = new GetStance(PokemonType.Fire).ReceiveSkill();
-            List<string> waterSkill = new GetStance(PokemonType.Water).ReceiveSkill();
-            List<string> earthSkill = new GetStance(PokemonType.Rock).ReceiveSkill();
-            List<string> plantSkill = new GetStance(PokemonType.Plant).ReceiveSkill();
+            List<string> fireSkill = GeralServices.ReceiveSkill<FireSkill>();
+            List<string> waterSkill = GeralServices.ReceiveSkill<WaterSkill>();
+            List<string> earthSkill = GeralServices.ReceiveSkill<EarthSkill>();
+            List<string> plantSkill = GeralServices.ReceiveSkill<PlantSkill>();
 
             List<Pokemons> pokemons = new List<Pokemons>()
             {

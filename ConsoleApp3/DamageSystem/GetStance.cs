@@ -34,9 +34,6 @@ namespace ConsoleApp3.DamageSystem
         {
             return _pokemonSystem.DealDamage(hability);
         }
-        public List<string> ReceiveSkill()
-        {
-            return _pokemonSystem.ReceiveSkill();
-        }
+
     }
 }

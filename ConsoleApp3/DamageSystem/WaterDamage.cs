@@ -1,5 +1,6 @@
 ﻿using ConsoleApp3.AllEnum;
 using ConsoleApp3.Interfaces;
+using ConsoleApp3.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,36 +12,13 @@ namespace ConsoleApp3.DamageSystem
     public class WaterDamage : IPokemonSystem
     {
         
-        public long DealDamage(int habilidade)
-        {
-            long damageCaused = 0;
+        public long DealDamage(int hability)
+        {           
+            WaterSkill water  = (WaterSkill)hability;
 
-            WaterSkill water  = (WaterSkill)habilidade;
+            WaterSkillDamage waterSkillDamage = GeralServices.GetEnumValue<WaterSkillDamage>(water.ToString());
 
-            switch (water)
-            {
-                case WaterSkill.JatoDagua:
-                    damageCaused = 30;
-                    break;
-                case WaterSkill.HidroBomba:
-                    damageCaused = 40;
-                    break;
-                case WaterSkill.Mergulho:
-                    damageCaused = 20;
-                    break;
-                default:
-                    damageCaused = 15;
-                    break;
-            }
-            return damageCaused;
-        }
-        public List<string> ReceiveSkill()
-        {
-            return GetEnumValues<WaterSkill>().ToList();
-        }
-        public static string[] GetEnumValues<TEnum>() where TEnum : Enum
-        {
-            return Enum.GetNames(typeof(TEnum));
+            return ((long)waterSkillDamage);
         }
     }
 }
