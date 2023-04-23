@@ -22,25 +22,27 @@ namespace ConsoleApp3
             var _battleService = new BattleService(_playerService, _pokemonService);
 
             //instanciando Playeres
-            Player Player1 = _playerService.CreatePlayer();
+            Player player1 = _playerService.CreatePlayer();
 
-            Player Player2 = _playerService.CreatePlayer();
+            Player player2 = _playerService.CreatePlayer();
+
+            _playerService.FirstPlayer(player1, player2);
 
             //Inicio do Duelo
-            while (_playerService.ValidatePlayerLife(Player1) && _playerService.ValidatePlayerLife(Player2))
+            while (_playerService.ValidatePlayerLife(player1) && _playerService.ValidatePlayerLife(player2))
             {
-                if (Player1.Turn)
+                if (player1.Turn)
                 {
-                    _pokemonService.ValidatePokemonHp(Player1);
-                    _battleService.Duel(Player1, Player2);
+                    _pokemonService.ValidatePokemonHp(player1);
+                    _battleService.Duel(player1, player2);
                     continue;
                 }
 
-                _pokemonService.ValidatePokemonHp(Player2);
-                _battleService.Duel(Player2, Player1);
+                _pokemonService.ValidatePokemonHp(player2);
+                _battleService.Duel(player2, player1);
             }
 
-            string winnerPlayer = _playerService.ValidatePlayerLife(Player1) ? Player1.Name : Player2.Name;
+            string winnerPlayer = _playerService.ValidatePlayerLife(player1) ? player1.Name : player2.Name;
 
             Console.WriteLine($"Player : {winnerPlayer} Ganhou!");
         }

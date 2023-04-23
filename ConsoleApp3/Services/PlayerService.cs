@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleApp3.Services
@@ -31,7 +32,7 @@ namespace ConsoleApp3.Services
             {
                 try
                 {
-                    Console.WriteLine("Qual pokemon irá usar?\n");
+                    Console.WriteLine($"Qual pokemon irá usar {player.Name}\n");
 
                     player.Pokemons.ForEach(x => Console.WriteLine($"{player.Pokemons.IndexOf(x)} - {x.Name} - {x.Type} \n"));
 
@@ -55,6 +56,18 @@ namespace ConsoleApp3.Services
             player.Pokemons.ForEach(x => player.TotalLife += x.Life);
 
             return player.TotalLife > 0 ? true : false;
+        }
+        public void FirstPlayer(Player player1, Player player2)
+        {
+            List<Player> decideTheFirst = new List<Player>() { player1, player2 };            
+
+            Player first = decideTheFirst.OrderBy(x => Guid.NewGuid()).First();
+
+            Console.WriteLine($"o jogador {first.Name} será o primeiro a jogar!\n");
+
+            Thread.Sleep(2000);
+                        
+            player1.Turn = first.Name.Equals(player1.Name) ? true : false;            
         }
     }
 }

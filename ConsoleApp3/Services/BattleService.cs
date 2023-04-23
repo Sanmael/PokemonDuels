@@ -21,7 +21,7 @@ namespace ConsoleApp3.Services
 
             usedPlayer.Turn = false;
 
-            Console.WriteLine($"{usedPlayer.Name} -- {usedPlayer.UsedPokemon.Name} -- {usedPlayer.UsedPokemon.Life} \n\nDeseja atacar ou trocar de Pokemon? \n\n1 - Atacar , 2 - Trocar \n");
+            Console.WriteLine($"Turno de {usedPlayer.Name} - Pokemon : {usedPlayer.UsedPokemon.Name} - Vida Restante : {usedPlayer.UsedPokemon.Life} \n\nDeseja atacar ou trocar de Pokemon? \n\n1 - Atacar , 2 - Trocar \n");
 
             string attackOrTrade = Console.ReadLine();
 
