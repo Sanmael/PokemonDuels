@@ -9,53 +9,59 @@ namespace ConsoleApp3.Services
 {
     public class PokemonService
     {
-        public void ValidatePokemonHp(Player Player)
+        public void ValidatePokemonHp(Player player)
         {
-            Player.UsedPokemon = Player.UsedPokemon.Life > 0 ? Player.UsedPokemon : RemoveFaintedPokemon(Player);
+            player.UsedPokemon = player.UsedPokemon.Life > 0 ? player.UsedPokemon : RemoveFaintedPokemon(player);
 
-            while (Player.UsedPokemon == null)
+            while (player.UsedPokemon == null)
             {
-                Console.WriteLine("Seu Pokemon morreu escolha outro! \n");
+                Console.Clear();
+
+                Console.WriteLine($"{player.Name} - Seu Pokemon morreu escolha outro! \n");
 
                 try
                 {
-                    Player.Pokemons.ForEach(x => Console.WriteLine($"Qual pokemon irá usar {x.Id} - {x.Name} ? \n"));
+                    Console.WriteLine("Qual pokemon irá usar?\n");
+
+                    player.Pokemons.ForEach(x => Console.WriteLine($"{player.Pokemons.IndexOf(x)} - {x.Name} - {x.Type} \n"));
 
                     int newChoice = int.Parse(Console.ReadLine());
 
-                    Player.UsedPokemon = Player.Pokemons.Where(x => x.Id == newChoice).FirstOrDefault();
+                    player.UsedPokemon = player.Pokemons.Where(x => player.Pokemons.IndexOf(x) == newChoice).FirstOrDefault();
                 }
                 catch
                 {
                     Console.WriteLine("Opção invalida, digite novamente \n");
-                    continue;
                 }
             }
         }
-        public Pokemons RemoveFaintedPokemon(Player Player)
+        public Pokemons RemoveFaintedPokemon(Player player)
         {
-            Player.Pokemons.Remove(Player.UsedPokemon);
+            player.Pokemons.Remove(player.UsedPokemon);
 
-            return Player.UsedPokemon = null;
+            return player.UsedPokemon = null;
         }
-        public void TradePokemon(Player Player)
+        public void TradePokemon(Player player)
         {
-            Player.UsedPokemon = null;
+            player.UsedPokemon = null;
 
-            while (Player.UsedPokemon == null)
+            while (player.UsedPokemon == null)
             {
                 try
                 {
-                    Player.Pokemons.ForEach(x => Console.WriteLine($"Qual pokemon irá usar {x.Id} - {x.Name} ? \n"));
+                    Console.Clear();
+
+                    Console.WriteLine("Qual pokemon irá usar\n");
+
+                    player.Pokemons.ForEach(x => Console.WriteLine($"{player.Pokemons.IndexOf(x)} - {x.Name} - {x.Type} \n"));
 
                     int newChoice = int.Parse(Console.ReadLine());
 
-                    Player.UsedPokemon = Player.Pokemons.Where(x => x.Id == newChoice).FirstOrDefault();
+                    player.UsedPokemon = player.Pokemons.Where(x => player.Pokemons.IndexOf(x) == newChoice).FirstOrDefault();
                 }
                 catch
                 {
                     Console.WriteLine("Opção invalida, digite novamente \n");
-                    continue;
                 }
             }
         }

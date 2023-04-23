@@ -17,42 +17,44 @@ namespace ConsoleApp3.Services
         }
         public Player CreatePlayer()
         {
-            Player Player = new Player();
+            Player player = new Player();
 
-            Console.WriteLine("Nome do Player \n");
+            Console.WriteLine("Nome do Novo Player");
 
-            Player.Name = Console.ReadLine();
+            player.Name = Console.ReadLine();
 
-            Player.Pokemons = _dataBase.ReceivePokemons();
+            player.Pokemons = _dataBase.ReceivePokemons();
 
-            Player.Pokemons.ForEach(x => Player.TotalLife += x.Life);
+            player.Pokemons.ForEach(x => player.TotalLife += x.Life);
 
-            while (Player.UsedPokemon == null)
+            while (player.UsedPokemon == null)
             {
                 try
                 {
-                    Player.Pokemons.ForEach(x => Console.WriteLine($"Qual pokemon irá usar {x.Id} - {x.Name} ? \n"));
+                    Console.WriteLine("Qual pokemon irá usar?\n");
+
+                    player.Pokemons.ForEach(x => Console.WriteLine($"{player.Pokemons.IndexOf(x)} - {x.Name} - {x.Type} \n"));
 
                     int firstChoice = int.Parse(Console.ReadLine());
 
-                    Player.UsedPokemon = Player.Pokemons.Where(x => x.Id == firstChoice).FirstOrDefault();
+                    player.UsedPokemon = player.Pokemons.Where(x => player.Pokemons.IndexOf(x) == firstChoice).FirstOrDefault();
                 }
                 catch
                 {
                     Console.WriteLine("Opção invalida, digite novamente \n");
-
-                    continue;
                 }
             }
-            return Player;
+            Console.Clear();
+
+            return player;
         }
-        public bool ValidatePlayerLife(Player Player)
+        public bool ValidatePlayerLife(Player player)
         {
-            Player.TotalLife = 0;
+            player.TotalLife = 0;
 
-            Player.Pokemons.ForEach(x => Player.TotalLife += x.Life);
+            player.Pokemons.ForEach(x => player.TotalLife += x.Life);
 
-            return Player.TotalLife > 0 ? true : false;
+            return player.TotalLife > 0 ? true : false;
         }
     }
 }

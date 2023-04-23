@@ -2,6 +2,7 @@
 using ConsoleApp3.Interfaces;
 using ConsoleApp3.DamageSystem;
 using System;
+using System.Threading;
 
 namespace ConsoleApp3.Services
 {
@@ -16,13 +17,11 @@ namespace ConsoleApp3.Services
         }
         public void Duel(Player usedPlayer, Player enemyPlayer)
         {
+            Console.Clear();
+
             usedPlayer.Turn = false;
 
-            Console.WriteLine($"{usedPlayer.Name} -- {usedPlayer.UsedPokemon.Name} -- {usedPlayer.UsedPokemon.Life} \n");
-
-            Console.WriteLine("Deseja atacar ou trocar de Pokemon? \n");
-
-            Console.WriteLine("1 - Atacar , 2 - Trocar \n");
+            Console.WriteLine($"{usedPlayer.Name} -- {usedPlayer.UsedPokemon.Name} -- {usedPlayer.UsedPokemon.Life} \n\nDeseja atacar ou trocar de Pokemon? \n\n1 - Atacar , 2 - Trocar \n");
 
             string attackOrTrade = Console.ReadLine();
 
@@ -31,31 +30,34 @@ namespace ConsoleApp3.Services
                 _pokemonService.TradePokemon(usedPlayer);
 
                 enemyPlayer.Turn = true;
-
-                return;
             }
 
             while (enemyPlayer.Turn == false)
             {
                 try
                 {
-                    Console.WriteLine($"Qual Habilidade Deseja Usar? \n");
+                    Console.WriteLine($"\nQual Habilidade Deseja Usar? \n");
 
-                    for (int i = 0; i < usedPlayer.UsedPokemon.Hability.Count; i++)
+                    for (int i = 0; i < usedPlayer.UsedPokemon.Habilitys.Count; i++)
                     {
-                        Console.WriteLine($"{i} - {usedPlayer.UsedPokemon.Hability[i]}");
+                        Console.WriteLine($"{i} - {usedPlayer.UsedPokemon.Habilitys[i]}\n");
                     }
 
                     IPokemonSystem IPokemonSystem = new GetStance(usedPlayer.UsedPokemon.Type);
 
-                    enemyPlayer.UsedPokemon.Life -= IPokemonSystem.DealDamage(int.Parse(Console.ReadLine()));
+                    long damage = IPokemonSystem.DealDamage(int.Parse(Console.ReadLine()));
 
                     enemyPlayer.Turn = true;
+
+                    enemyPlayer.UsedPokemon.Life -= damage;                    
+
+                    Console.WriteLine($"\n{enemyPlayer.UsedPokemon.Name} recebeu {damage} de dano, sua vida atual é : {enemyPlayer.UsedPokemon.Life}");
+
+                    Thread.Sleep(3000);
                 }
                 catch
                 {
                     Console.WriteLine("Opção invalida, digite novamente \n");
-                    continue;
                 }
             }
         }
