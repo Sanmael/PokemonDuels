@@ -1,4 +1,5 @@
-﻿using ConsoleApp3.AllEnum;
+﻿using ConsoleApp3.Enumerations;
+using ConsoleApp3.Entities;
 using ConsoleApp3.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,10 +31,21 @@ namespace ConsoleApp3.DamageSystem
             }
         }
 
-        public long DealDamage(int hability)
+        public void DealDamage(int hability, Player usedPlayer, Player enemyPlayer)
         {
-            return _pokemonSystem.DealDamage(hability);
-        }
+            try
+            {
+                _pokemonSystem.DealDamage(hability, usedPlayer, enemyPlayer);
+            }
 
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}\n");
+
+                enemyPlayer.UsedPokemon.Life -= 20;
+
+                Console.WriteLine($"\n{enemyPlayer.UsedPokemon.Name} recebeu {20} de dano, sua vida atual é : {enemyPlayer.UsedPokemon.Life}");
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using ConsoleApp3.AllEnum;
+﻿using ConsoleApp3.Enumerations;
 using ConsoleApp3.Entities;
 using ConsoleApp3.DamageSystem;
 using System;
@@ -12,10 +12,10 @@ namespace ConsoleApp3.AppDbContext
     {
         public List<Pokemons> ReceivePokemons()
         {
-            List<string> fireSkill = GeralServices.ReceiveSkill<FireSkill>();
-            List<string> waterSkill = GeralServices.ReceiveSkill<WaterSkill>();
-            List<string> earthSkill = GeralServices.ReceiveSkill<EarthSkill>();
-            List<string> plantSkill = GeralServices.ReceiveSkill<PlantSkill>();
+            List<string> fireSkill = GeralServices.ReceiveSkill<FireSkill>().OrderBy(x=> Guid.NewGuid()).Take(3).ToList();
+            List<string> waterSkill = GeralServices.ReceiveSkill<WaterSkill>().OrderBy(x => Guid.NewGuid()).Take(3).ToList();
+            List<string> earthSkill = GeralServices.ReceiveSkill<EarthSkill>().OrderBy(x => Guid.NewGuid()).Take(3).ToList();
+            List<string> plantSkill = GeralServices.ReceiveSkill<PlantSkill>().OrderBy(x => Guid.NewGuid()).Take(3).ToList();
 
             List<Pokemons> pokemons = new List<Pokemons>()
             {

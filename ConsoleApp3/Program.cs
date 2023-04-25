@@ -1,5 +1,5 @@
 ﻿using ConsoleApp3.AppDbContext;
-using ConsoleApp3.AllEnum;
+using ConsoleApp3.Enumerations;
 using ConsoleApp3.Interfaces;
 using ConsoleApp3.Services;
 using ConsoleApp3.DamageSystem;
@@ -19,13 +19,11 @@ namespace ConsoleApp3
 
             var _playerService = new PlayerService(dataBase);
             var _pokemonService = new PokemonService();
-            var _battleService = new BattleService(_playerService, _pokemonService);
+            var _battleService = new BattleService(_pokemonService);
 
             //instanciando Playeres
             Player player1 = _playerService.CreatePlayer();
-
             Player player2 = _playerService.CreatePlayer();
-
             _playerService.FirstPlayer(player1, player2);
 
             //Inicio do Duelo

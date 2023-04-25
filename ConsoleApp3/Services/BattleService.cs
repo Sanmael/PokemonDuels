@@ -7,12 +7,10 @@ using System.Threading;
 namespace ConsoleApp3.Services
 {
     public class BattleService
-    {
-        public static PlayerService _playerService;
-        public static PokemonService _pokemonService;
-        public BattleService(PlayerService playerService, PokemonService pokemonService)
-        {
-            _playerService = playerService;
+    {        
+        private readonly PokemonService _pokemonService;
+        public BattleService(PokemonService pokemonService)
+        {            
             _pokemonService = pokemonService;
         }
         public void Duel(Player usedPlayer, Player enemyPlayer)
@@ -43,15 +41,11 @@ namespace ConsoleApp3.Services
                         Console.WriteLine($"{i} - {usedPlayer.UsedPokemon.Habilitys[i]}\n");
                     }
 
-                    IPokemonSystem IPokemonSystem = new GetStance(usedPlayer.UsedPokemon.Type);
+                    IPokemonSystem iPokemonSystem = new GetStance(usedPlayer.UsedPokemon.Type);
 
-                    long damage = IPokemonSystem.DealDamage(int.Parse(Console.ReadLine()));
+                    iPokemonSystem.DealDamage(int.Parse(Console.ReadLine()),usedPlayer,enemyPlayer);
 
-                    enemyPlayer.Turn = true;
-
-                    enemyPlayer.UsedPokemon.Life -= damage;                    
-
-                    Console.WriteLine($"\n{enemyPlayer.UsedPokemon.Name} recebeu {damage} de dano, sua vida atual é : {enemyPlayer.UsedPokemon.Life}");
+                    enemyPlayer.Turn = true;                                  
 
                     Thread.Sleep(3000);
                 }

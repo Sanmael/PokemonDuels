@@ -18,16 +18,10 @@ namespace ConsoleApp3.Services
         }
         public Player CreatePlayer()
         {
-            Player player = new Player();
-
             Console.WriteLine("Nome do Novo Player");
 
-            player.Name = Console.ReadLine();
-
-            player.Pokemons = _dataBase.ReceivePokemons();
-
-            player.Pokemons.ForEach(x => player.TotalLife += x.Life);
-
+            Player player = new Player(Console.ReadLine(), _dataBase.ReceivePokemons());
+                                    
             while (player.UsedPokemon == null)
             {
                 try
@@ -53,7 +47,7 @@ namespace ConsoleApp3.Services
         {
             player.TotalLife = 0;
 
-            player.Pokemons.ForEach(x => player.TotalLife += x.Life);
+            player.GetTotalLife();
 
             return player.TotalLife > 0 ? true : false;
         }

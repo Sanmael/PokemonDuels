@@ -1,4 +1,5 @@
-﻿using ConsoleApp3.AllEnum;
+﻿using ConsoleApp3.Enumerations;
+using ConsoleApp3.Entities;
 using ConsoleApp3.Interfaces;
 using ConsoleApp3.Services;
 using System;
@@ -11,14 +12,22 @@ namespace ConsoleApp3.DamageSystem
 {
     public class WaterDamage : IPokemonSystem
     {
-        
-        public long DealDamage(int hability)
-        {           
-            WaterSkill water  = (WaterSkill)hability;
 
-            WaterSkillDamage waterSkillDamage = GeralServices.GetEnumValue<WaterSkillDamage>(water.ToString());
+        public void DealDamage(int hability, Player usedPlayer, Player enemyPlayer)
+        {
+            WaterSkill water;
 
-            return ((long)waterSkillDamage);
+            if (Enum.IsDefined(typeof(WaterSkill), hability))            
+                water = (WaterSkill)hability;
+            
+            else
+                throw new Exception($"{usedPlayer.UsedPokemon.Name} usou ataque padrão !");
+
+            long damage = ((long)GeralServices.GetEnumValue<WaterSkillDamage>(water.ToString()));
+
+            enemyPlayer.UsedPokemon.Life -= damage;
+
+            Console.WriteLine($"\n{enemyPlayer.UsedPokemon.Name} recebeu o ataque {water.ToString()} causou {damage} de dano, sua vida atual é : {enemyPlayer.UsedPokemon.Life}");
         }
     }
 }

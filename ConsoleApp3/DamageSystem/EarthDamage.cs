@@ -1,4 +1,5 @@
-﻿using ConsoleApp3.AllEnum;
+﻿using ConsoleApp3.Enumerations;
+using ConsoleApp3.Entities;
 using ConsoleApp3.Interfaces;
 using ConsoleApp3.Services;
 using System;
@@ -11,13 +12,23 @@ namespace ConsoleApp3.DamageSystem
 {
     public class EarthDamage : IPokemonSystem
     {
-        public long DealDamage(int hability)
+        public void DealDamage(int hability, Player usedPlayer, Player enemyPlayer)
         {
-            EarthSkill earth = (EarthSkill)hability;
+            EarthSkill earth;
 
-            EarthSkillDamage earthSkillDamage = GeralServices.GetEnumValue<EarthSkillDamage>(earth.ToString());
+            if (Enum.IsDefined(typeof(EarthSkill), hability))
+            {
+                earth = (EarthSkill)hability;
+            }
 
-            return ((long)earthSkillDamage);
+            else
+                throw new Exception($"{usedPlayer.UsedPokemon.Name} usou ataque padrão !");
+
+            long damage = ((long)GeralServices.GetEnumValue<EarthSkillDamage>(earth.ToString()));
+
+            enemyPlayer.UsedPokemon.Life -= damage;
+
+            Console.WriteLine($"\n{enemyPlayer.UsedPokemon.Name} recebeu o ataque {earth.ToString()} causou {damage} de dano, sua vida atual é : {enemyPlayer.UsedPokemon.Life}");
         }
     }
 }

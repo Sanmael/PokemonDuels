@@ -1,4 +1,4 @@
-﻿using ConsoleApp3.AllEnum;
+﻿using ConsoleApp3.Enumerations;
 using System.Collections.Generic;
 
 namespace ConsoleApp3.Entities

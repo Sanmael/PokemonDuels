@@ -9,5 +9,15 @@ namespace ConsoleApp3.Entities
         public Pokemons UsedPokemon { get; set; }
         public bool Turn { get; set; }
         public long TotalLife { get; set; }
+        public Player(string name, List<Pokemons> pokemons)
+        {
+            Name = name;
+            Pokemons = pokemons;
+            GetTotalLife();
+        }
+        public void GetTotalLife()
+        {
+            Pokemons.ForEach(x => TotalLife += x.Life);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ConsoleApp3.AllEnum;
+﻿using ConsoleApp3.Enumerations;
+using ConsoleApp3.Entities;
 using ConsoleApp3.Interfaces;
 using ConsoleApp3.Services;
 using System;
@@ -9,13 +10,23 @@ namespace ConsoleApp3.DamageSystem
 {
     public class PlantDamage : IPokemonSystem
     {
-        public long DealDamage(int hability)
-        {           
-            PlantSkill plant = (PlantSkill)hability;
+        public void DealDamage(int hability, Player usedPlayer, Player enemyPlayer)
+        {
+            PlantSkill plant;
 
-            PlantSkillDamage plantSkillDamage = GeralServices.GetEnumValue<PlantSkillDamage>(plant.ToString());
+            if (Enum.IsDefined(typeof(PlantSkill), hability))
+            {
+                plant = (PlantSkill)hability;
+            }
 
-            return ((long)plantSkillDamage);
+            else
+                throw new Exception($"{usedPlayer.UsedPokemon.Name} usou ataque padrão !");
+
+            long damage = ((long)GeralServices.GetEnumValue<PlantSkillDamage>(plant.ToString()));
+
+            enemyPlayer.UsedPokemon.Life -= damage;
+
+            Console.WriteLine($"\n{enemyPlayer.UsedPokemon.Name} recebeu o ataque {plant.ToString()} causou {damage} de dano, sua vida atual é : {enemyPlayer.UsedPokemon.Life}");
         }
     }
 }
