@@ -6,18 +6,21 @@ namespace ConsoleApp3.Entities
     public class Pokemons
     {
         public long Id { get; set; }
+        public long? PlayerId { get; set; }
         public string Name { get; set; }
-        public List<string> Habilitys { get; set; }
+        public List<Habilidades> Habilitys { get; set; }
         public long Life { get; set; }
         public PokemonType Type { get; set; }
-
-        public Pokemons(long id, string name, List<string> habilitys, long life, PokemonType type)
+        public int Level { get; set; }
+        public string Description { get; set; }
+        public Pokemons(long id, string name, List<Habilidades> habilitys, long life, PokemonType type,string description)
         {
             Id = id;
             Name = name;
             Habilitys = habilitys;
             Life = life;
             Type = type;
+            Description = description;
         }
     }
 }

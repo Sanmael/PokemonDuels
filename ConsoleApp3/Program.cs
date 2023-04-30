@@ -1,6 +1,5 @@
 ﻿using ConsoleApp3.AppDbContext;
 using ConsoleApp3.Enumerations;
-using ConsoleApp3.Interfaces;
 using ConsoleApp3.Services;
 using ConsoleApp3.DamageSystem;
 using System;
@@ -24,6 +23,7 @@ namespace ConsoleApp3
             //instanciando Playeres
             Player player1 = _playerService.CreatePlayer();
             Player player2 = _playerService.CreatePlayer();
+
             _playerService.FirstPlayer(player1, player2);
 
             //Inicio do Duelo

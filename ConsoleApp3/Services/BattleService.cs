@@ -1,7 +1,7 @@
 ﻿using ConsoleApp3.Entities;
-using ConsoleApp3.Interfaces;
 using ConsoleApp3.DamageSystem;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace ConsoleApp3.Services
@@ -17,9 +17,13 @@ namespace ConsoleApp3.Services
         {
             Console.Clear();
 
+            _pokemonService.AddNewPokemonDetails(usedPlayer.PokeDex, enemyPlayer.UsedPokemon);
+
             usedPlayer.Turn = false;
 
-            Console.WriteLine($"Turno de {usedPlayer.Name} - Pokemon : {usedPlayer.UsedPokemon.Name} - Vida Restante : {usedPlayer.UsedPokemon.Life} \n\nDeseja atacar ou trocar de Pokemon? \n\n1 - Atacar , 2 - Trocar \n");
+            Console.WriteLine($"Turno de {usedPlayer.Name} - Pokemon : {usedPlayer.UsedPokemon.Name} -" +
+                $" Vida Restante : {usedPlayer.UsedPokemon.Life} \n\nDeseja atacar ou trocar de Pokemon? \n\n1 -" +
+                $" Atacar , 2 - Trocar, 3 - Olhar Pokedex e ver O Pokemon Adversario\n");
 
             string attackOrTrade = Console.ReadLine();
 
@@ -30,6 +34,12 @@ namespace ConsoleApp3.Services
                 enemyPlayer.Turn = true;
             }
 
+            if(attackOrTrade == "3")
+            {
+                PokedexPokemon achou = _pokemonService.GetPokemonDetails(enemyPlayer.UsedPokemon.Name, usedPlayer.PokeDex);
+                Console.WriteLine($"{achou.PokemonName} é um pokemon do tipo {achou.Type}\n{achou.Description}\nHabilidades: {achou.Habilitys.Select(x =>x.Name)}");
+            }
+
             while (enemyPlayer.Turn == false)
             {
                 try
@@ -38,12 +48,12 @@ namespace ConsoleApp3.Services
 
                     for (int i = 0; i < usedPlayer.UsedPokemon.Habilitys.Count; i++)
                     {
-                        Console.WriteLine($"{i} - {usedPlayer.UsedPokemon.Habilitys[i]}\n");
+                        Console.WriteLine($"{i} - {usedPlayer.UsedPokemon.Habilitys[i].Name}\n");
                     }
 
-                    IPokemonSystem iPokemonSystem = new GetStance(usedPlayer.UsedPokemon.Type);
+                    Habilidades habilidades = usedPlayer.UsedPokemon.Habilitys[(int.Parse(Console.ReadLine()))];
 
-                    iPokemonSystem.DealDamage(int.Parse(Console.ReadLine()),usedPlayer,enemyPlayer);
+                    new Damage().DealDamage(habilidades, usedPlayer,enemyPlayer);
 
                     enemyPlayer.Turn = true;                                  
 
@@ -51,7 +61,7 @@ namespace ConsoleApp3.Services
                 }
                 catch
                 {
-                    Console.WriteLine("Opção invalida, digite novamente \n");
+                    Console.WriteLine("\nOpção invalida, digite novamente \n");
                 }
             }
         }

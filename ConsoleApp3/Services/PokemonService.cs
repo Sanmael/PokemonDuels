@@ -65,6 +65,15 @@ namespace ConsoleApp3.Services
                 }
             }
         }
+        public void AddNewPokemonDetails(PokeDex pokeDex, Pokemons pokemons)
+        {            
+            if(!pokeDex.DiscoveredPokemons.Where(x => x.PokemonName == pokemons.Name).Any())
+                pokeDex.DiscoveredPokemons.Add(new PokedexPokemon().CreatePokedexPokemon(pokeDex.PlayerId,pokemons));
+        }
+        public PokedexPokemon GetPokemonDetails(string name, PokeDex pokeDex)
+        {
+            return pokeDex.DiscoveredPokemons.Where(x => x.PokemonName.Equals(name)).FirstOrDefault();
+        }
     }
 
 }

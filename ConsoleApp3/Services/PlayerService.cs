@@ -12,6 +12,7 @@ namespace ConsoleApp3.Services
     public class PlayerService
     {
         private readonly DataBase _dataBase;
+        public long ids = 1;
         public PlayerService(DataBase dataBase)
         {
             _dataBase = dataBase;
@@ -20,8 +21,8 @@ namespace ConsoleApp3.Services
         {
             Console.WriteLine("Nome do Novo Player");
 
-            Player player = new Player(Console.ReadLine(), _dataBase.ReceivePokemons());
-                                    
+            Player player = new Player(Console.ReadLine(), _dataBase.ReceivePokemons(), ids);
+
             while (player.UsedPokemon == null)
             {
                 try
@@ -41,6 +42,8 @@ namespace ConsoleApp3.Services
             }
             Console.Clear();
 
+            ids++;
+
             return player;
         }
         public bool ValidatePlayerLife(Player player)
@@ -53,15 +56,15 @@ namespace ConsoleApp3.Services
         }
         public void FirstPlayer(Player player1, Player player2)
         {
-            List<Player> decideTheFirst = new List<Player>() { player1, player2 };            
+            List<Player> decideTheFirst = new List<Player>() { player1, player2 };
 
             Player first = decideTheFirst.OrderBy(x => Guid.NewGuid()).First();
 
             Console.WriteLine($"o jogador {first.Name} será o primeiro a jogar!\n");
 
             Thread.Sleep(2000);
-                        
-            player1.Turn = first.Name.Equals(player1.Name) ? true : false;            
+
+            player1.Turn = first.Name.Equals(player1.Name) ? true : false;
         }
     }
 }
