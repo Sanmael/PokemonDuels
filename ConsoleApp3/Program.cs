@@ -31,18 +31,21 @@ namespace ConsoleApp3
             {
                 if (player1.Turn)
                 {
-                    _pokemonService.ValidatePokemonHp(player1);
+                    _pokemonService.ValidatePokemonHp(player1, player2.UsedPokemon);                        
                     _battleService.Duel(player1, player2);
                     continue;
                 }
-
-                _pokemonService.ValidatePokemonHp(player2);
+                _pokemonService.ValidatePokemonHp(player2, player1.UsedPokemon);                    
                 _battleService.Duel(player2, player1);
             }
 
             string winnerPlayer = _playerService.ValidatePlayerLife(player1) ? player1.Name : player2.Name;
 
             Console.WriteLine($"Player : {winnerPlayer} Ganhou!");
+
+         
+
+
         }
     }
 }

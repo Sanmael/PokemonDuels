@@ -9,7 +9,8 @@ namespace ConsoleApp3.Services
 {
     public class PokemonService
     {
-        public void ValidatePokemonHp(Player player)
+        LevelService LevelService = new LevelService();
+        public void ValidatePokemonHp(Player player, Pokemons enemyPokemons)
         {
             player.UsedPokemon = player.UsedPokemon.Life > 0 ? player.UsedPokemon : RemoveFaintedPokemon(player);
 
@@ -33,6 +34,8 @@ namespace ConsoleApp3.Services
                 {
                     Console.WriteLine("Opção invalida, digite novamente \n");
                 }
+
+                ValidateExperience(enemyPokemons);
             }
         }
         public Pokemons RemoveFaintedPokemon(Player player)
@@ -66,13 +69,17 @@ namespace ConsoleApp3.Services
             }
         }
         public void AddNewPokemonDetails(PokeDex pokeDex, Pokemons pokemons)
-        {            
-            if(!pokeDex.DiscoveredPokemons.Where(x => x.PokemonName == pokemons.Name).Any())
-                pokeDex.DiscoveredPokemons.Add(new PokedexPokemon().CreatePokedexPokemon(pokeDex.PlayerId,pokemons));
+        {
+            if (!pokeDex.DiscoveredPokemons.Where(x => x.PokemonName == pokemons.Name).Any())
+                pokeDex.DiscoveredPokemons.Add(new PokedexPokemon().CreatePokedexPokemon(pokeDex.PlayerId, pokemons));
         }
         public PokedexPokemon GetPokemonDetails(string name, PokeDex pokeDex)
         {
             return pokeDex.DiscoveredPokemons.Where(x => x.PokemonName.Equals(name)).FirstOrDefault();
+        }
+        public void ValidateExperience(Pokemons enemyPokemons)
+        {
+            LevelService.ValidateLevelUp(enemyPokemons);
         }
     }
 

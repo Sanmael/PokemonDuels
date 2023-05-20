@@ -12,6 +12,10 @@ namespace ConsoleApp3.AppDbContext
     {
         public List<Pokemons> ReceivePokemons()
         {
+            return DataBasePokemons().OrderBy(x => Guid.NewGuid()).Take(3).ToList();
+        }
+        public List<Pokemons> DataBasePokemons()
+        {
             List<Habilidades> habilidades = new List<Habilidades>()
             {
                 new Habilidades() { Name = "Lança-Chamas", Type = PokemonType.Fire, Damage = 50 },
@@ -45,15 +49,17 @@ namespace ConsoleApp3.AppDbContext
             new Pokemons(2, "FogoNaChota", habilidades.Where(x => x.Type == PokemonType.Fire).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 200, PokemonType.Fire,"FogoNaChota é um Pokémon de temperamento agressivo que ataca inimigos e amigos sem discriminação. FogoNaChota é a forma evoluída de um Charmeleon que perdeu seu treinador e ficou perambulando pelo mundo."),
             new Pokemons(3, "Bulbasaur", habilidades.Where(x => x.Type == PokemonType.Plant).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 260, PokemonType.Plant,"Há uma semente em suas costas desde o dia em que nasceu. Essa semente cresce lentamente."),
             new Pokemons(4, "Squirtle", habilidades.Where(x => x.Type == PokemonType.Water).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 220, PokemonType.Water,"Ao nascer, tem uma cauda curta que muda lentamente para uma maior à medida que ele envelhece."),
-            new Pokemons(6, "Geodude", habilidades.Where(x => x.Type == PokemonType.Rock).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 50, PokemonType.Rock,"Geodude é encontrado em campos de montanha. Se você bater na montanha em que este Pokémon vive, ele balança e balança. Batendo na montanha pode causar uma avalanche, o que pode ser perigoso."),
+            new Pokemons(6, "Geodude", habilidades.Where(x => x.Type == PokemonType.Rock).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 150, PokemonType.Rock,"Geodude é encontrado em campos de montanha. Se você bater na montanha em que este Pokémon vive, ele balança e balança. Batendo na montanha pode causar uma avalanche, o que pode ser perigoso."),
             new Pokemons(7, "Vaporeon", habilidades.Where(x => x.Type == PokemonType.Water).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 300, PokemonType.Water,"Vaporeon é um Pokémon que vive próximo a rios, lagos e outras fontes de água. Seu corpo está adaptado para viver em ambientes aquáticos e é capaz de se transformar em água para evitar ataques."),
             new Pokemons(8, "Charmeleon", habilidades.Where(x => x.Type == PokemonType.Fire).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 260, PokemonType.Fire,"Tem uma personalidade feroz. Se você encontra-se com um Charmeleon em uma batalha, será necessário estar preparado para enfrentar um oponente muito forte."),
             new Pokemons(9, "Ivysaur", habilidades.Where(x => x.Type == PokemonType.Plant).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 240, PokemonType.Plant,"Quando a semente cresce, torna-se mais pesada e começa a se mover lentamente. A semente eventualmente se abre e um Pokémon começa a crescer a partir dela."),
             new Pokemons(10,"Wartortle", habilidades.Where(x => x.Type == PokemonType.Water).OrderBy(x => Guid.NewGuid()).Take(3).ToList(), 220, PokemonType.Water,"Wartortle tem uma cauda longa e espinhosa, que ele usa para nadar com grande habilidade. Este Pokémon pode nadar muito rapidamente e é capaz de nadar longas distâncias.")
             };
-
-
-            return pokemons.OrderBy(x => Guid.NewGuid()).Take(3).ToList();
+            return pokemons;
+        }
+        public Pokemons GetPokemonsById(long id)
+        {
+            return DataBasePokemons().Where(x => x.Id == id).FirstOrDefault();
         }
     }
 }

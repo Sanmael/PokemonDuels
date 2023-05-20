@@ -10,8 +10,10 @@ namespace ConsoleApp3.Entities
         public string Name { get; set; }
         public List<Habilidades> Habilitys { get; set; }
         public long Life { get; set; }
+        public long MaxLife { get; set; }
         public PokemonType Type { get; set; }
         public int Level { get; set; }
+        public int Experience { get; set; }
         public string Description { get; set; }
         public Pokemons(long id, string name, List<Habilidades> habilitys, long life, PokemonType type,string description)
         {
@@ -21,6 +23,8 @@ namespace ConsoleApp3.Entities
             Life = life;
             Type = type;
             Description = description;
+            Level = 1;
+            MaxLife = Life;
         }
     }
 }
