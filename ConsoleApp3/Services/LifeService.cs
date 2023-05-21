@@ -1,10 +1,5 @@
-﻿using ConsoleApp3.AppDbContext;
-using ConsoleApp3.Entities;
+﻿using ConsoleApp3.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp3.Services
 {
@@ -12,6 +7,8 @@ namespace ConsoleApp3.Services
     {
         public void LevelUpPokemonFullLife(Pokemons pokemons)
         {
+            Random random = new Random();
+            pokemons.MaxLife += random.Next(30, 50);
             pokemons.Life = pokemons.MaxLife;
         }
     }

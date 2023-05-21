@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 
 namespace ConsoleApp3.Entities
@@ -15,11 +14,11 @@ namespace ConsoleApp3.Entities
         public PokeDex PokeDex { get; set; }
         public Player(string name, List<Pokemons> pokemons, long playerId)
         {
+            PlayerId = playerId;
             Name = name;
             Pokemons = pokemons;
             pokemons.ForEach(x => x.PlayerId = playerId);
             GetTotalLife();
-            PlayerId = playerId;
             PokeDex = new PokeDex(playerId);
             pokemons.ForEach(x => PokeDex.DiscoveredPokemons.Add(new PokedexPokemon().CreatePokedexPokemon(playerId, x)));            
         }

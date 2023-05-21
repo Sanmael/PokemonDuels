@@ -1,10 +1,8 @@
 ﻿using ConsoleApp3.Enumerations;
 using ConsoleApp3.Entities;
-using ConsoleApp3.DamageSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ConsoleApp3.Services;
 
 namespace ConsoleApp3.AppDbContext
 {

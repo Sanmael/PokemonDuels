@@ -1,12 +1,7 @@
 ﻿using ConsoleApp3.AppDbContext;
-using ConsoleApp3.Enumerations;
-using ConsoleApp3.Services;
-using ConsoleApp3.DamageSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using ConsoleApp3.Entities;
+using ConsoleApp3.Services;
+using System;
 
 namespace ConsoleApp3
 {
@@ -41,11 +36,7 @@ namespace ConsoleApp3
 
             string winnerPlayer = _playerService.ValidatePlayerLife(player1) ? player1.Name : player2.Name;
 
-            Console.WriteLine($"Player : {winnerPlayer} Ganhou!");
-
-         
-
-
+            Console.WriteLine($"Player : {winnerPlayer} Ganhou!");         
         }
     }
 }

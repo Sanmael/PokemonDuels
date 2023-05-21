@@ -1,9 +1,5 @@
 ﻿using ConsoleApp3.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp3.Services
 {
@@ -12,9 +8,10 @@ namespace ConsoleApp3.Services
         LifeService LifeService = new LifeService();
         public void ValidateLevelUp(Pokemons pokemons)
         {
+            Random random = new Random();
+
             //por enquanto 
-            pokemons.Experience += 100;
-            pokemons.MaxLife += 50;
+            pokemons.Experience += random.Next(50, 100);
 
             switch (pokemons.Level)
             {
@@ -37,14 +34,15 @@ namespace ConsoleApp3.Services
         {
             int levelQuandoChegou = usedPokemon.Level;
 
-            usedPokemon.Level = usedPokemon.Experience <= 100 ? 2 :
-                                 usedPokemon.Experience <= 200 ? 3 :
-                                 usedPokemon.Experience <= 300 ? 4 :
-                                 usedPokemon.Experience <= 400 ? 5 :
-                                 usedPokemon.Experience <= 500 ? 6 :
-                                 usedPokemon.Experience <= 600 ? 7 :
-                                 usedPokemon.Experience <= 700 ? 8 :
-                                 usedPokemon.Experience <= 800 ? 9 : 10;
+            usedPokemon.Level =
+            usedPokemon.Experience <= 100 ? 2 :
+            usedPokemon.Experience <= 200 ? 3 :
+            usedPokemon.Experience <= 300 ? 4 :
+            usedPokemon.Experience <= 400 ? 5 :
+            usedPokemon.Experience <= 500 ? 6 :
+            usedPokemon.Experience <= 600 ? 7 :
+            usedPokemon.Experience <= 700 ? 8 :
+            usedPokemon.Experience <= 800 ? 9 : 10;
 
             if (usedPokemon.Level != levelQuandoChegou)
                 LifeService.LevelUpPokemonFullLife(usedPokemon);

@@ -3,16 +3,14 @@ using ConsoleApp3.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ConsoleApp3.Services
 {
     public class PlayerService
     {
         private readonly DataBase _dataBase;
-        public long ids = 1;
+        public long Ids = 1;
         public PlayerService(DataBase dataBase)
         {
             _dataBase = dataBase;
@@ -21,7 +19,7 @@ namespace ConsoleApp3.Services
         {
             Console.WriteLine("Nome do Novo Player");
 
-            Player player = new Player(Console.ReadLine(), _dataBase.ReceivePokemons(), ids);
+            Player player = new Player(Console.ReadLine(), _dataBase.ReceivePokemons(), Ids);
 
             while (player.UsedPokemon == null)
             {
@@ -42,7 +40,7 @@ namespace ConsoleApp3.Services
             }
             Console.Clear();
 
-            ids++;
+            Ids++;
 
             return player;
         }
@@ -62,9 +60,9 @@ namespace ConsoleApp3.Services
 
             Console.WriteLine($"o jogador {first.Name} será o primeiro a jogar!\n");
 
-            Thread.Sleep(2000);
-
             player1.Turn = first.Name.Equals(player1.Name) ? true : false;
+
+            Thread.Sleep(2000);
         }
     }
 }
